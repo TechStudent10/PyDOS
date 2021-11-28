@@ -6,6 +6,6 @@ def command(os, config, args, kwargs):
     if path in os.listdir():
         if input(f'Are you sure you want to delete {path} (y/n)').lower() == 'y':
             if os.path.isdir(path):
-                os.delete(path)
-            else:
                 os.rmdir(path)
+            else:
+                os.remove(path)
