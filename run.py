@@ -5,6 +5,7 @@ import json
 import importlib
 from colorama import Fore, Back, Style
 from colorama import init as colorama_init
+from art import tprint
 
 colorama_init(True)
 
@@ -83,7 +84,7 @@ def run_command(command, args=None, kwargs=None):
 
 def main():
     clear()
-    print("Welcome to PyDOS")
+    tprint("Welcome  to  PyDOS")
     print("")
     is_logged_in = False
     if 'current_user.json' in os.listdir():
@@ -94,6 +95,10 @@ def main():
         if logged_in['status'] == 'success':
             is_logged_in = True
 
+            run_command(f'cd', ['users'])
+            run_command(f'cd', [current_user['username']])
+
+    current_user = {}
     while not is_logged_in:
         logged_in = login()
         if logged_in['status'] == "success":
@@ -103,6 +108,9 @@ def main():
                     "password": logged_in['user_json']['password'],
                 }, f, indent=4)
             
+            current_user = logged_in['user_json']
+            run_command(f'cd', ['users'])
+            run_command(f'cd', [current_user['username']])
             is_logged_in = True
             break
         else:
