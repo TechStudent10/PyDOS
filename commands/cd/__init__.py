@@ -6,6 +6,8 @@ def command(os, config, args, kwargs):
     if new_path == '..':
         if len(config['path_structure']) != 1:
             config['path_structure'].pop()
+        
+        os.chdir('..')
     else:
         if new_path in os.listdir():
             if os.path.isdir(new_path):
@@ -13,3 +15,5 @@ def command(os, config, args, kwargs):
                 config['path_structure'].append(new_path)
             else:
                 print("Path is not a directory")
+        else:
+            print("Path not found")
